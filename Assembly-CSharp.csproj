@@ -36,8 +36,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets/MouseLook.cs" />
-     <Compile Include="Assets/PlayerMovement.cs" />
+     <Compile Include="Assets/Scripts/MouseLook.cs" />
+     <Compile Include="Assets/Scripts/PlayerMovement.cs" />
+     <None Include="Assets/TerrainSampleAssets/ThirdPartyNotices.txt" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/2020.3.27f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
