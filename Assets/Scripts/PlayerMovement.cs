@@ -11,8 +11,14 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+
+
     public AudioClip[] walkSounds;
+    private AudioSource audioSource;
     public float timeBetweenSteps = 1f;
+
+    private bool isWalking = false;
+    private float timeAtLastStep;
 
     public float gravity = -9.81f;
     // Start is called before the first frame update
@@ -21,7 +27,8 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+        timeAtLastStep = Time.time;
     }
 
     // Update is called once per frame
@@ -40,24 +47,39 @@ public class PlayerMovement : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        
+        CheckisWalking(x,z);
         velocity.y += gravity*Time.deltaTime;
-        if(isGrounded)
-        {
-            if(x!=0||z!=0)
+
+       
+       if(isWalking)
+       {
+            if(Time.time - timeAtLastStep > timeBetweenSteps)
             {
-                timeBetweenSteps -=1 * Time.deltaTime;
+                audioSource.PlayOneShot(walkSounds[Random.Range(0,walkSounds.Length)]);
+                timeAtLastStep = Time.time;
             }
-        }
-        if(timeBetweenSteps <= 0)
-        {
-            Debug.Log("Step");
-            timeBetweenSteps = 1f;
-        }
+
+       }
+
 
         Vector3 move = transform.right * x + transform.forward*z ;
         controller.Move(move*speed*Time.deltaTime);
         controller.Move(velocity*Time.deltaTime);
         Debug.Log(timeBetweenSteps);
+        
+    }
+   void CheckisWalking(float x,float z)
+   {
+     if(isGrounded)
+        {
+            if(x!=0||z!=0)
+            {
+                isWalking = true;
+                
+            }else{
+                isWalking = false;
+            }
+        }
+
     }
 }
