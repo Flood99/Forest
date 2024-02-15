@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 829992080}
-  speed: 5
   jumpHeight: 3
   groundCheck: {fileID: 1211593530}
   groundDistance: 0.4
@@ -472,7 +471,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d9d11b3416cfb4badb253062d5fa3679, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1dae47f53fd4e44fe8f423fee88ad665, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

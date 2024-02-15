@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller; 
-    public float speed = 5;
+    private float speed = 5;
     public float jumpHeight = 3f;
     
     public Transform groundCheck;
@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float timeBetweenSteps = 1f;
 
     private bool isWalking = false;
+    private bool isRunning = false;
     private float timeAtLastStep;
 
     public float gravity = -9.81f;
@@ -36,6 +37,18 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position,groundDistance,groundMask);
 
+        if(Input.GetButton("Run"))
+        {
+            isRunning = true;
+            speed = 7;
+            timeBetweenSteps = 0.5f;
+
+        }
+        else{
+            isRunning = false;
+            speed = 5;
+            timeBetweenSteps = 1f;
+        }
         if(isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
