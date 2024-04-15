@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isWalking = false;
     private bool isRunning = false;
     private float timeAtLastStep;
+   
 
     public float gravity = -9.81f;
     // Start is called before the first frame update
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         timeAtLastStep = Time.time;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -55,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(Input.GetButtonDown("Jump")&& isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2* gravity);
+            //velocity.y = Mathf.Sqrt(jumpHeight * -2* gravity);
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -76,9 +79,9 @@ public class PlayerMovement : MonoBehaviour
 
 
         Vector3 move = transform.right * x + transform.forward*z ;
-        controller.Move(move*speed*Time.deltaTime);
+        controller.Move(move.normalized*speed*Time.deltaTime);
         controller.Move(velocity*Time.deltaTime);
-        Debug.Log(timeBetweenSteps);
+        
         
     }
    void CheckisWalking(float x,float z)

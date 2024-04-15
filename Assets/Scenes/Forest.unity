@@ -203,6 +203,18 @@ PrefabInstance:
       propertyPath: m_AgentTypeID
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 672336761393917861, guid: f88458ee643e14210af3a4b46055c2e4, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 672336761393917861, guid: f88458ee643e14210af3a4b46055c2e4, type: 3}
+      propertyPath: m_Acceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 672336761393917861, guid: f88458ee643e14210af3a4b46055c2e4, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8107458527454531972, guid: f88458ee643e14210af3a4b46055c2e4, type: 3}
       propertyPath: m_RootOrder
       value: 1
