@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioClip[] walkSounds;
     private AudioSource audioSource;
+    private GameManager gameManager;
     public float timeBetweenSteps = 1f;
 
     private bool isWalking = false;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         timeAtLastStep = Time.time;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -60,27 +62,33 @@ public class PlayerMovement : MonoBehaviour
         {
             //velocity.y = Mathf.Sqrt(jumpHeight * -2* gravity);
         }
-
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        
+        
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+        
+        
         CheckisWalking(x,z);
         velocity.y += gravity*Time.deltaTime;
 
        
-       if(isWalking)
+       if(isWalking&& gameManager.gameOver == false)
        {
             if(Time.time - timeAtLastStep > timeBetweenSteps)
             {
                 audioSource.PlayOneShot(walkSounds[Random.Range(0,walkSounds.Length)]);
                 timeAtLastStep = Time.time;
             }
-
        }
 
-
-        Vector3 move = transform.right * x + transform.forward*z ;
-        controller.Move(move.normalized*speed*Time.deltaTime);
-        controller.Move(velocity*Time.deltaTime);
+        
+        if(gameManager.gameOver == false)
+        {
+            Vector3 move = transform.right * x + transform.forward*z ;
+            controller.Move(move.normalized*speed*Time.deltaTime);
+            controller.Move(velocity*Time.deltaTime);
+        }
+        
         
         
     }
@@ -98,4 +106,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+           
+            if(gameManager.gameOver == false)
+            {
+                EnemyController tree = other.gameObject.GetComponent<EnemyController>();
+                tree.Kill();
+
+            }
+        }
+    }
 }
+

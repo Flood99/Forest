@@ -42,9 +42,10 @@
      <Compile Include="Assets/PSXShaderKit/Scripts/PSXPostProcessEffect.cs" />
      <Compile Include="Assets/PSXShaderKit/Demo/PSXExample_CameraMovement.cs" />
      <Compile Include="Assets/Scripts/EnemyController.cs" />
+     <Compile Include="Assets/Scripts/Lights.cs" />
      <Compile Include="Assets/PSXShaderKit/Demo/SpookyOrbFloat.cs" />
      <Compile Include="Assets/Scripts/PlayerMovement.cs" />
-     <Compile Include="Assets/Scripts/Lights.cs" />
+     <Compile Include="Assets/Scripts/GameManager.cs" />
      <None Include="Assets/TerrainSampleAssets/ThirdPartyNotices.txt" />
      <None Include="Assets/PSXShaderKit/Shaders/PSX-VertexLitTransparentCutout.shader" />
      <None Include="Assets/PSXShaderKit/Shaders/PSX-UnlitTransparentCutout.shader" />

@@ -10,13 +10,15 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
     private NavMeshAgent enemy;
     private Vector3 offset;
+    private GameManager gameManager;
     private string STATE = "STALK";
     private bool playerLooking = false;
     private float acceleration = 10;
     private float deceleration = 60;
     private AudioSource audioSource;
     public AudioClip[] ambushSounds;
-    public AudioClip moveSound;
+    public AudioClip neckSnap;
+
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class EnemyController : MonoBehaviour
         offset = new Vector3(Random.Range(20,50),0,Random.Range(20,50));
         enemy.SetDestination(player.transform.position + offset);
         StartCoroutine(StalkTimers());
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         
     }
 
@@ -118,4 +121,10 @@ public class EnemyController : MonoBehaviour
             
         }
     }
-}
+    public void Kill()
+    {
+        audioSource.PlayOneShot(neckSnap);  
+        gameManager.EndGame();
+
+    }
+}   
