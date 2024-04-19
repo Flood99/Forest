@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isWalking = false;
     private bool isRunning = false;
+    public Rigidbody head;
     private float timeAtLastStep;
    
 
@@ -114,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             if(gameManager.gameOver == false)
             {
                 EnemyController tree = other.gameObject.GetComponent<EnemyController>();
+                head.isKinematic = false;
                 tree.Kill();
 
             }
