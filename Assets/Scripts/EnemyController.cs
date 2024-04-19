@@ -14,11 +14,15 @@ public class EnemyController : MonoBehaviour
     private bool playerLooking = false;
     private float acceleration = 10;
     private float deceleration = 60;
+    private AudioSource audioSource;
+    public AudioClip[] ambushSounds;
+    public AudioClip moveSound;
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         enemy = GetComponent<NavMeshAgent>(); 
+        audioSource = GetComponent<AudioSource>();
         offset = new Vector3(Random.Range(20,50),0,Random.Range(20,50));
         enemy.SetDestination(player.transform.position + offset);
         StartCoroutine(StalkTimers());
@@ -33,6 +37,7 @@ public class EnemyController : MonoBehaviour
         Vector3 targetDir =  transform.position - player.transform.position;
         // returns the angle (from, to)
         float angleToUs= Vector3.Angle(targetDir, player.transform.forward);
+        //check if player is looking then set variable
         if (angleToUs >= -70 && angleToUs<= 70)
         {
             if(playerLooking == false) Debug.Log("Player is looking at me >:(");
@@ -64,7 +69,11 @@ public class EnemyController : MonoBehaviour
         }else if(STATE == "STALK")
         {
             enemy.SetDestination(player.transform.position + offset);
-            enemy.speed = 10;
+            if(playerLooking == false) enemy.speed = 10;
+            if(playerLooking == true) enemy.speed = 0;
+
+            
+            
 
         }else if(STATE == "CHASE")
         {
@@ -72,10 +81,10 @@ public class EnemyController : MonoBehaviour
             enemy.speed = 15;
             Debug.Log("Chasing");
             
-           
             if (playerLooking == true)
             {
                 STATE = "IDLE";
+                
                 
             }
         }else if(STATE == "RUN")
@@ -91,17 +100,19 @@ public class EnemyController : MonoBehaviour
     {
         if(STATE == "STALK")
         {
-            yield return new WaitForSeconds(Random.Range(30,60));
+            yield return new WaitForSeconds(Random.Range(10,20));
             int i = Random.Range(1, 11);
-            if (i < 3)
+            Debug.Log(i);
+            if (i < 10)
             {
                 STATE = "CHASE";
+                audioSource.PlayOneShot(ambushSounds[Random.Range(0,ambushSounds.Length)]);
                 Debug.Log("Time to Run");
             }
         }
         if(STATE == "STALK")
         {
-            yield return new WaitForSeconds(Random.Range(30,60));
+            yield return new WaitForSeconds(Random.Range(10,20));
             offset = new Vector3(Random.Range(20,50),0,Random.Range(20,50));
             enemy.SetDestination(player.transform.position + offset);
             
